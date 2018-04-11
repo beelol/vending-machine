@@ -1,7 +1,7 @@
 require 'rspec'
 require "./coin_details.rb"
 
-# The purpose of this test is to insure there are no issues
+# The purpose of this test is to ensure there are no issues
 # when making new coin detail objects to receive information from
 # the coin detail hash
 RSpec.describe CoinDetails, "#accept" do

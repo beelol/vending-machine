@@ -2,13 +2,13 @@ require 'rspec'
 require "./vending_machine.rb"
 require "./coin_constants.rb"
 
-vendingMachine = VendingMachine.new
+vending_machine = VendingMachine.new
 
 RSpec.describe VendingMachine, "#accept" do
     context "with coin details" do
         it "finds nickels respectively" do
 
-            result = vendingMachine.GetValueByCoinDetails(
+            result = vending_machine.GetValueByCoinDetails(
                 CoinConstants::NICKEL_WEIGHT,
                 CoinConstants::NICKEL_THICKNESS,
                 CoinConstants::NICKEL_DIAMETER)
@@ -18,7 +18,7 @@ RSpec.describe VendingMachine, "#accept" do
 
         it "finds dimes respectively" do
 
-            result = vendingMachine.GetValueByCoinDetails(
+            result = vending_machine.GetValueByCoinDetails(
                 CoinConstants::DIME_WEIGHT,
                 CoinConstants::DIME_THICKNESS, CoinConstants::DIME_DIAMETER)
 
@@ -27,7 +27,7 @@ RSpec.describe VendingMachine, "#accept" do
 
         it "finds quarters respectively" do
 
-            result = vendingMachine.GetValueByCoinDetails(
+            result = vending_machine.GetValueByCoinDetails(
                 CoinConstants::QUARTER_WEIGHT,
                 CoinConstants::QUARTER_THICKNESS, CoinConstants::QUARTER_DIAMETER)
 
