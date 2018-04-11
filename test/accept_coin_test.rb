@@ -8,7 +8,7 @@ RSpec.describe VendingMachine, "#accept" do
     context "with coin details" do
         it "finds nickels respectively" do
 
-            result = vending_machine.GetValueByCoinDetails(
+            result = vending_machine.get_value_by_coin_details(
                 CoinConstants::NICKEL_WEIGHT,
                 CoinConstants::NICKEL_THICKNESS,
                 CoinConstants::NICKEL_DIAMETER)
@@ -18,7 +18,7 @@ RSpec.describe VendingMachine, "#accept" do
 
         it "finds dimes respectively" do
 
-            result = vending_machine.GetValueByCoinDetails(
+            result = vending_machine.get_value_by_coin_details(
                 CoinConstants::DIME_WEIGHT,
                 CoinConstants::DIME_THICKNESS, CoinConstants::DIME_DIAMETER)
 
@@ -27,7 +27,7 @@ RSpec.describe VendingMachine, "#accept" do
 
         it "finds quarters respectively" do
 
-            result = vending_machine.GetValueByCoinDetails(
+            result = vending_machine.get_value_by_coin_details(
                 CoinConstants::QUARTER_WEIGHT,
                 CoinConstants::QUARTER_THICKNESS, CoinConstants::QUARTER_DIAMETER)
 

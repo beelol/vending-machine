@@ -11,7 +11,7 @@ RSpec.describe VendingMachine, "#selectproduct" do
 
             vending_machine = VendingMachine.new(product)
 
-            expect(vending_machine.get_item_at(0)).to eq product
+            expect(vending_machine.get_product_at(0)).to eq product
         end
 
         it "finds each respective product" do
@@ -21,9 +21,9 @@ RSpec.describe VendingMachine, "#selectproduct" do
 
             vending_machine = VendingMachine.new(cola, chips, candy)
 
-            expect(vending_machine.get_item_at(0)).to eq cola
-            expect(vending_machine.get_item_at(1)).to eq chips
-            expect(vending_machine.get_item_at(2)).to eq candy
+            expect(vending_machine.get_product_at(0)).to eq cola
+            expect(vending_machine.get_product_at(1)).to eq chips
+            expect(vending_machine.get_product_at(2)).to eq candy
         end
 
         it "purchases a product when selected" do
@@ -39,7 +39,7 @@ RSpec.describe VendingMachine, "#selectproduct" do
 
             vending_machine.select_product(2)
 
-            expect(vending_machine.current_amount).to eq .35
+            expect(vending_machine.current_amount).to eq 0.35
         end
     end
 end

@@ -42,7 +42,7 @@ RSpec.describe Product, "#selectproduct" do
 
             vending_machine.purchase(product)
 
-            expect(product.current_amount)).to eq 0
+            expect(vending_machine.current_amount).to eq 0
         end
 
         it "cannot purchase an item that is more expensive than current amount" do
