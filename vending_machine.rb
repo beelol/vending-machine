@@ -6,7 +6,7 @@ class VendingMachine
     attr_reader :current_amount
 
     def initialize(*products)
-        @current_amount = 0
+        @current_amount = 0.00
         @products = products
     end
 
@@ -45,5 +45,21 @@ class VendingMachine
 
     def select_product(index)
         purchase get_product_at(index)
+    end
+
+    def make_change(coins)
+        remaining_returns = @current_amount
+
+        change = []
+
+        coins.each do |coin|
+            break if remaining_returns == 0
+            while remaining_returns - coin >= 0
+                remaining_returns -= coin
+                change << coin
+            end
+        end
+
+        change
     end
 end

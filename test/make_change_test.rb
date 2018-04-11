@@ -41,6 +41,8 @@ RSpec.describe VendingMachine, "#makechange" do
         end
 
         it "makes change with minimal amount of coins for use case 0.65" do
+            vending_machine = VendingMachine.new
+
             # store .65 without accessor
             2.times do
                 vending_machine.add_coin(CoinConstants::QUARTER_WEIGHT, CoinConstants::QUARTER_THICKNESS, CoinConstants::QUARTER_DIAMETER)
@@ -71,12 +73,12 @@ RSpec.describe VendingMachine, "#makechange" do
         end
 
         it "makes change with minimal amount of coins for use case 0.40" do
+            vending_machine = VendingMachine.new
+
             # add 0.40 without accessor
-            vending_machine.add_coin(CoinConstants::QUARTER_WEIGHT, CoinConstants::QUARTER_THICKNESS, CoinConstants::QUARTER_DIAMETER)
-
-            vending_machine.add_coin(CoinConstants::DIME_WEIGHT, CoinConstants::DIME_THICKNESS, CoinConstants::DIME_DIAMETER)
-
-            vending_machine.add_coin(CoinConstants::NICKEL_WEIGHT, CoinConstants::NICKEL_THICKNESS, CoinConstants::NICKEL_DIAMETER)
+            4.times do
+                vending_machine.add_coin(CoinConstants::DIME_WEIGHT, CoinConstants::DIME_THICKNESS, CoinConstants::DIME_DIAMETER)
+            end
 
             change = vending_machine.make_change(coins)
 
