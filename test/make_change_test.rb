@@ -17,8 +17,8 @@ RSpec.describe VendingMachine, "#makechange" do
             num_quarters = 1.75 / CoinConstants::QUARTER_VALUE
 
             # store 1.75 without accessor
-            num_quarters.times do
-                vending_machine.add_coin(CoinConstants::QUARTER_VALUE)
+            num_quarters.to_i.times do
+                vending_machine.add_coin(CoinConstants::QUARTER_WEIGHT, CoinConstants::QUARTER_THICKNESS, CoinConstants::QUARTER_DIAMETER)
             end
 
             change = vending_machine.make_change(coins)
@@ -43,11 +43,12 @@ RSpec.describe VendingMachine, "#makechange" do
         it "makes change with minimal amount of coins for use case 0.65" do
             # store .65 without accessor
             2.times do
-                vending_machine.add_coin(CoinConstants::QUARTER_VALUE)
+                vending_machine.add_coin(CoinConstants::QUARTER_WEIGHT, CoinConstants::QUARTER_THICKNESS, CoinConstants::QUARTER_DIAMETER)
             end
 
-            vending_machine.add_coin(CoinConstants::DIME_VALUE)
-            vending_machine.add_coin(CoinConstants::NICKEL_VALUE)
+            vending_machine.add_coin(CoinConstants::DIME_WEIGHT, CoinConstants::DIME_THICKNESS, CoinConstants::DIME_DIAMETER)
+
+            vending_machine.add_coin(CoinConstants::NICKEL_WEIGHT, CoinConstants::NICKEL_THICKNESS, CoinConstants::NICKEL_DIAMETER)
 
             change = vending_machine.make_change(coins)
 
@@ -71,9 +72,11 @@ RSpec.describe VendingMachine, "#makechange" do
 
         it "makes change with minimal amount of coins for use case 0.40" do
             # add 0.40 without accessor
-            vending_machine.add_coin(CoinConstants::QUARTER_VALUE)
-            vending_machine.add_coin(CoinConstants::DIME_VALUE)
-            vending_machine.add_coin(CoinConstants::NICKEL_VALUE)
+            vending_machine.add_coin(CoinConstants::QUARTER_WEIGHT, CoinConstants::QUARTER_THICKNESS, CoinConstants::QUARTER_DIAMETER)
+
+            vending_machine.add_coin(CoinConstants::DIME_WEIGHT, CoinConstants::DIME_THICKNESS, CoinConstants::DIME_DIAMETER)
+
+            vending_machine.add_coin(CoinConstants::NICKEL_WEIGHT, CoinConstants::NICKEL_THICKNESS, CoinConstants::NICKEL_DIAMETER)
 
             change = vending_machine.make_change(coins)
 
