@@ -5,10 +5,6 @@ require "./product.rb"
 class VendingMachine
     attr_reader :current_amount
 
-    def initialize
-        @current_amount = 0
-    end
-
     def initialize(*products)
         @current_amount = 0
         @products = products
