@@ -1,4 +1,4 @@
-public class CoinConstants
+class CoinConstants
     # Weight Constants in Grams
     @@NICKEL_WEIGHT = 5
     @@DIME_WEIGHT = 2.268
