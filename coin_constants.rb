@@ -13,4 +13,9 @@ public class CoinConstants
     @@NICKEL_DIAMETER = 21.2
     @@DIME_DIAMETER = 17.91
     @@QUARTER_DIAMETER = 24.26
+
+    # Diameter Constants in Millimeters
+    @@NICKEL_VALUE = 21.2
+    @@DIME_VALUE = 17.91
+    @@QUARTER_VALUE = 24.26
 end
