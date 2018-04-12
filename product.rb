@@ -9,4 +9,12 @@ class Product
     def can_be_purchased_with?(amount)
         amount >= price
     end
+
+    def eql?(other)
+        @name == other.name && @price = other.price
+    end
+
+    def hash
+     [ @name, @price ].hash
+    end
 end
