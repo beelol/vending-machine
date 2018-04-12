@@ -41,5 +41,16 @@ RSpec.describe VendingMachine, "#addmoney" do
 
             expect(vending_machine.current_amount).to eq CoinConstants::QUARTER_VALUE
         end
+
+        it "does not accept invalid coins" do
+            vending_machine = VendingMachine.new
+
+            # vending_machine.add_coin(CoinConstants::QUARTER_WEIGHT,
+            #     8.25, CoinConstants::QUARTER_DIAMETER)
+
+            add_coin_block = Proc.new { vending_machine.add_coin(CoinConstants::QUARTER_WEIGHT, 8.25, CoinConstants::QUARTER_DIAMETER) }
+
+            expect(add_coin_block).to output(/INVALID COIN. QUARTERS, DIMES, AND NICKELS ONLY, PLEASE./).to_stdout
+        end
     end
 end

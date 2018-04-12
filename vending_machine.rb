@@ -81,12 +81,23 @@ class VendingMachine
     end
 
     def get_value_by_coin_details(weight, thickness, diameter)
-        @@coin_value_by_details[CoinDetails.new(weight, thickness, diameter)]
+        coin = CoinDetails.new(weight, thickness, diameter)
+
+        unless @@coin_value_by_details.has_key? coin
+            return nil
+        end
+
+        @@coin_value_by_details[coin]
     end
 
     def add_coin(weight, thickness, diameter)
         value = get_value_by_coin_details(weight, thickness, diameter)
 
+        if value.nil?
+            puts "INVALID COIN. QUARTERS, DIMES, AND NICKELS ONLY, PLEASE."
+
+            return
+        end
         # add to possible change
         # store_coin(weight, thickness, diameter, 1)
 
