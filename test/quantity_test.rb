@@ -18,13 +18,13 @@ RSpec.describe VendingMachine, "#soldout" do
 
             vending_machine.purchase(cola)
 
-            expect(vending_machine.get_item_count(0)).to eq 4
+            expect(vending_machine.get_product_count_at(0)).to eq 4
         end
 
         it "does not remove items that are sold out" do
             vending_machine = VendingMachine.new
             cola = Product.new("Cola", 1)
-            
+
             vending_machine.add_product(cola, 0)
 
             4.times do

@@ -7,7 +7,9 @@ class VendingMachine
 
     def initialize(*products)
         @current_amount = 0.00
-        @products = products
+        @products = {}
+
+        products.each { |product| @products[product] = 1 }
     end
 
     # Reference coin values by their physical details
@@ -34,13 +36,32 @@ class VendingMachine
     end
 
     def purchase(product)
-        if product.can_be_purchased_with? current_amount
+        if can_purchase_product? product
             @current_amount -= product.price
+
+            @products[product] -= 1
+        end
+    end
+
+    def can_purchase_product?(product)
+        product.can_be_purchased_with?(@current_amount) && @products.has_key?(product) && @products[product] > 0
+    end
+
+    def add_product(product, count)
+        if @products.has_key? product
+            @products[product] += count
+        else
+            @products[product] = count
         end
     end
 
     def get_product_at(index)
-        @products[index]
+        @products.keys[index]
+    end
+
+    def get_product_count_at(index)
+        key = @products.keys[index]
+        @products[key]
     end
 
     def select_product(index)

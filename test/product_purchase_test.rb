@@ -19,7 +19,7 @@ require "./vending_machine.rb"
 require "./product.rb"
 
 # The purpose of this test is to ensure that the vending machine can be used to purchase 3 different items properly
-RSpec.describe Product, "#selectproduct" do
+RSpec.describe Product, "#purchaseproduct" do
     context "with a product" do
         it "can be purchased with appropriate amount" do
             vending_machine = VendingMachine.new
@@ -33,8 +33,8 @@ RSpec.describe Product, "#selectproduct" do
         end
 
         it "uses the current amount to purchase items" do
-            vending_machine = VendingMachine.new
             product = Product.new("Cola", 1)
+            vending_machine = VendingMachine.new(product)
 
             4.times do
                 vending_machine.add_coin(CoinConstants::QUARTER_WEIGHT, CoinConstants::QUARTER_THICKNESS, CoinConstants::QUARTER_DIAMETER)
