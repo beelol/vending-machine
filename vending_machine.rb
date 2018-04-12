@@ -8,6 +8,7 @@ class VendingMachine
     def initialize(*products)
         @current_amount = 0.00
         @products = {}
+        @coins = {}
 
         products.each { |product| @products[product] = 1 }
     end
