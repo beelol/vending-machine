@@ -9,6 +9,7 @@ class VendingMachine
         @current_amount = 0.00
         @products = {}
         @coins = {}
+        @user_coins = []
 
         products.each { |product| @products[product] = 1 }
     end
@@ -98,10 +99,16 @@ class VendingMachine
 
             return
         end
-        # add to possible change
-        # store_coin(weight, thickness, diameter, 1)
+
+        @user_coins << value
 
         @current_amount += value
+    end
+
+    def return_coins
+        puts "COINS RETURNED IN SLOT BELOW"
+        @user_coins.clear
+        @current_amount = 0
     end
 
     def purchase(product)
@@ -109,6 +116,10 @@ class VendingMachine
             @current_amount -= product.price
 
             @products[product] -= 1
+
+            puts "THANK YOU"
+        else
+            puts "PRICE: #{product.price}"
         end
     end
 

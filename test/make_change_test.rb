@@ -4,14 +4,6 @@ require "./coin_constants.rb"
 
 RSpec.describe VendingMachine, "#makechange" do
     vending_machine = VendingMachine.new
-
-    # assume coins is sorted
-    coins = [
-        CoinConstants::QUARTER_VALUE,
-        CoinConstants::DIME_VALUE,
-        CoinConstants::NICKEL_VALUE
-    ]
-
     context "with a current amount over 0" do
         it "makes change with minimal amount of coins for use case 1.75" do
             num_quarters = 1.75 / CoinConstants::QUARTER_VALUE
