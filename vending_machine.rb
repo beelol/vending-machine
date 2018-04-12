@@ -26,7 +26,7 @@ class VendingMachine
             CoinConstants::QUARTER_THICKNESS, CoinConstants::QUARTER_DIAMETER) => CoinConstants::QUARTER_VALUE,
     }
     def get_stored_coin_total_value
-        @coins.values.inject(0) {:+}
+        @coins.values.inject(0) {|sum, coin| sum + coin }
     end
 
     def min_product_value
@@ -42,13 +42,21 @@ class VendingMachine
     end
 
     def can_make_change
+        return false unless get_stored_coin_total_value >= min_product_value
+
+        # we need to ensure that the sum of making change will actually return the current_amount, which is the change we want
+
+        # current amount is the change we want because the price is removed from it before making change
+
+        (make_change.inject(0) {|sum, coin| sum + coin }) == @current_amount
         # if we have enough to exchange for the minimum product,
         # we don't need exact change and can return the amount
-        get_stored_coin_total_value >= min_product_value
     end
 
     def prompt_for_money
-        unless can_make_change
+        if can_make_change
+            puts "INSERT COIN"
+        else
             puts "EXACT CHANGE ONLY"
         end
     end
@@ -80,7 +88,7 @@ class VendingMachine
         value = get_value_by_coin_details(weight, thickness, diameter)
 
         # add to possible change
-        store_coin(weight, thickness, diameter, 1)
+        # store_coin(weight, thickness, diameter, 1)
 
         @current_amount += value
     end
@@ -118,20 +126,28 @@ class VendingMachine
         purchase get_product_at(index)
     end
 
-    def make_change(coins)
-        # return unless can_make_change
+    def make_change
         remaining_returns = @current_amount
 
         change = []
 
-        coins.each do |coin|
-            break if remaining_returns == 0
-            while remaining_returns - coin >= 0
-                remaining_returns -= coin
-                change << coin
+        @coins.each do |coin, count|
+            # break if remaining_returns == 0
+
+            while @coins[coin] > 0 && remaining_returns - @@coin_value_by_details[coin] >= 0
+
+                # if @coins[coin] > 0
+                    num_coins = (@coins[coin] -= 1)
+
+                    remaining_returns -= @@coin_value_by_details[coin]
+                    change << @@coin_value_by_details[coin]
+                # end
             end
+
+            break if remaining_returns == 0
         end
 
+        # puts change
         change
     end
 end
