@@ -25,6 +25,52 @@ class VendingMachine
         CoinDetails.new(CoinConstants::QUARTER_WEIGHT,
             CoinConstants::QUARTER_THICKNESS, CoinConstants::QUARTER_DIAMETER) => CoinConstants::QUARTER_VALUE,
     }
+    def get_stored_coin_total_value
+        @coins.values.inject(0) {:+}
+    end
+
+    def min_product_value
+        min = @products.keys[0].price
+
+        @products.keys.each do |product|
+            if product.price < min
+                min = product.price
+            end
+        end
+
+        min
+    end
+
+    def can_make_change
+        # if we have enough to exchange for the minimum product,
+        # we don't need exact change and can return the amount
+        get_stored_coin_total_value >= min_product_value
+    end
+
+    def prompt_for_money
+        unless can_make_change
+            puts "EXACT CHANGE ONLY"
+        end
+    end
+
+    def store_coin(weight, thickness, diameter, count)
+        coin = CoinDetails.new(weight, thickness, diameter)
+        if @coins.has_key? coin
+            @coins[coin] += count
+        else
+            @coins[coin] = count
+        end
+    end
+
+    def get_coin_count(weight, thickness, diameter)
+        coin = CoinDetails.new(weight, thickness, diameter)
+
+        if @coins.has_key? coin
+            return @coins[CoinDetails.new(weight, thickness, diameter)]
+        end
+
+        0
+    end
 
     def get_value_by_coin_details(weight, thickness, diameter)
         @@coin_value_by_details[CoinDetails.new(weight, thickness, diameter)]
@@ -32,6 +78,9 @@ class VendingMachine
 
     def add_coin(weight, thickness, diameter)
         value = get_value_by_coin_details(weight, thickness, diameter)
+
+        # add to possible change
+        store_coin(weight, thickness, diameter, 1)
 
         @current_amount += value
     end
@@ -70,6 +119,7 @@ class VendingMachine
     end
 
     def make_change(coins)
+        # return unless can_make_change
         remaining_returns = @current_amount
 
         change = []
