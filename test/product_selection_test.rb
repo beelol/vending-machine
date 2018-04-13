@@ -39,7 +39,7 @@ RSpec.describe VendingMachine, "#selectproduct" do
 
             vending_machine.select_product(2)
 
-            expect(vending_machine.current_amount).to eq 35
+            expect(vending_machine.current_amount).to eq 0
         end
     end
 end

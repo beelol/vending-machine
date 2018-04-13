@@ -154,6 +154,12 @@ class VendingMachine
 
     def select_product(index)
         purchase get_product_at(index)
+
+        # return what's left to the user
+        make_change
+
+        # clear the amount
+        @current_amount = 0
     end
 
     def make_change
