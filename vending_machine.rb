@@ -155,6 +155,11 @@ class VendingMachine
     end
 
     def return_coins
+        if @user_coins.empty?
+            puts "NO COINS TO RETURN IN MACHINE"
+            return
+        end
+
         puts "COINS RETURNED IN SLOT BELOW: #{@user_coins.map {|coin| coin.to_f / 100}}"
         @user_coins.clear
         @current_amount = 0

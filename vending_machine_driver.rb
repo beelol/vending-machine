@@ -58,6 +58,14 @@ while true
 
     input = gets.chomp
 
+    case input.downcase
+    when "exit"
+        exit
+    when "return"
+        vending_machine.return_coins
+        next
+    end
+
     product_selection = /[0-9]/.match(input)
 
     unless product_selection.nil?
