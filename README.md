@@ -9,14 +9,15 @@ If you don't have RSpec, simply run the following command:
     gem install rspec
 
 ## Running
-Vending Machine can be run with the following commands:
+Once you have downloaded or cloned the repository, assuming it is unzipped, enter the repository in your terminal.
+
+After navigating to its repository, Vending Machine can be run with the following command:
 
     ruby vending_machine_driver.rb
 
 You can of course also make your own driver, and run it with the ruby command.
 
 ## Testing
-
 Vending Machine can be tested with the following command:
 
     rspec
