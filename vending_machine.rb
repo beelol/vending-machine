@@ -86,7 +86,6 @@ class VendingMachine
                 change << @@coin_value_by_details[coin]
 
                 num_coins -= 1
-                # puts remaining_returns
             end
 
             @coins[coin] = num_coins unless check
@@ -94,7 +93,6 @@ class VendingMachine
             break if remaining_returns == 0
         end
 
-        # puts change
         change
     end
 
@@ -163,8 +161,16 @@ class VendingMachine
     end
 
     def purchase(product)
+
         if can_purchase_product? product
             @current_amount -= product.price
+
+            unless can_make_change_for_amount(@current_amount)
+                puts "CANNOT MAKE CHANGE"
+                return_coins
+
+                return
+            end
 
             @products[product] -= 1
 
@@ -213,13 +219,9 @@ class VendingMachine
                 puts "CHANGE IN SLOT BELOW: #{change_to_return.to_s}"
             end
 
-            user_coins.clear
-        else
-            return_coins
+            @user_coins.clear
+            @current_amount = 0
         end
-
-        # clear the amount
-        @current_amount = 0
     end
 
     def make_change
