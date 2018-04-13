@@ -27,6 +27,15 @@ The "dime" command will insert a quarter by size and weight.
     nickel
 The "nickel" command will insert a quarter by size and weight.
 
+    0
+The "0" command will attempt to purchase Cola for $1.00.
+
+    1
+The "1" command will attempt to purchase Chips for $0.50
+
+    2
+The "2" command will attempt to purchase Chips for $0.65
+
     return
 The "return" command will cause the machine to return all coins inserted by the user.
 
