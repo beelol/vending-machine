@@ -114,8 +114,6 @@ class VendingMachine
         else
             @coins[coin] = count
         end
-
-        puts "There are now #{@coins[coin]} coins with value #{@@coin_value_by_details[coin]}"
     end
 
     def get_coin_count(weight, thickness, diameter)
