@@ -105,7 +105,7 @@ class VendingMachine
 
         @current_amount += value
 
-        # puts "CURRENT AMOUNT: #{@current_amount}"
+        puts "CURRENT AMOUNT: #{@current_amount.to_f / 100}"
     end
 
     def return_coins
