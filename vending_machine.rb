@@ -27,7 +27,8 @@ class VendingMachine
             CoinConstants::QUARTER_THICKNESS, CoinConstants::QUARTER_DIAMETER) => CoinConstants::QUARTER_VALUE,
     }
     def get_stored_coin_total_value
-        @coins.values.inject(0) {|sum, coin| sum + coin }
+        # @coins.values.inject(0) {|sum, coin| sum + coin }
+        @coins.keys.inject(0) {|sum, coin| sum + @@coin_value_by_details[coin] * @coins[coin] }
     end
 
     def min_product_value
@@ -103,6 +104,8 @@ class VendingMachine
         @user_coins << value
 
         @current_amount += value
+
+        # puts "CURRENT AMOUNT: #{@current_amount}"
     end
 
     def return_coins
@@ -119,7 +122,12 @@ class VendingMachine
 
             puts "THANK YOU"
         else
-            puts "PRICE: #{product.price}"
+            if @products.has_key?(product) && @products[product] < 1
+                puts "SOLD OUT"
+                return
+            end
+
+            puts "PRICE: #{product.price.to_f / 100}"
         end
     end
 
@@ -155,15 +163,15 @@ class VendingMachine
 
         @coins.each do |coin, count|
             # break if remaining_returns == 0
+            #
+            # puts remaining_returns
+            # puts @@coin_value_by_details[coin]
 
             while @coins[coin] > 0 && remaining_returns - @@coin_value_by_details[coin] >= 0
+                num_coins = (@coins[coin] -= 1)
 
-                # if @coins[coin] > 0
-                    num_coins = (@coins[coin] -= 1)
-
-                    remaining_returns -= @@coin_value_by_details[coin]
-                    change << @@coin_value_by_details[coin]
-                # end
+                remaining_returns -= @@coin_value_by_details[coin]
+                change << @@coin_value_by_details[coin]
             end
 
             break if remaining_returns == 0

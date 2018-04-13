@@ -15,7 +15,7 @@ class CoinConstants
     QUARTER_DIAMETER = 24.26
 
     # Value Constants in Cents
-    NICKEL_VALUE = 0.05
-    DIME_VALUE = 0.10
-    QUARTER_VALUE = 0.25
+    NICKEL_VALUE = 5
+    DIME_VALUE = 10
+    QUARTER_VALUE = 25
 end

@@ -7,7 +7,7 @@ RSpec.describe VendingMachine, "#coinquantity" do
     context "with a quantity of coins" do
         it "stores the appropriate amount" do
             vending_machine = VendingMachine.new
-            cola = Product.new("Cola", 1)
+            cola = Product.new("Cola", 100)
             vending_machine.add_product(cola, 1)
 
             vending_machine.store_coin(CoinConstants::QUARTER_WEIGHT, CoinConstants::QUARTER_THICKNESS, CoinConstants::QUARTER_DIAMETER, 4)
@@ -19,7 +19,7 @@ RSpec.describe VendingMachine, "#coinquantity" do
 
         it "prompts the user for exact change when necessary" do
             vending_machine = VendingMachine.new
-            cola = Product.new("Cola", 1)
+            cola = Product.new("Cola", 100)
             vending_machine.add_product(cola, 1)
 
             expect { vending_machine.prompt_for_money }.to output(/EXACT CHANGE ONLY/).to_stdout

@@ -37,7 +37,7 @@ RSpec.describe VendingMachine, "#accept" do
 
         it "asks the user to insert coins" do
 
-            vending_machine = VendingMachine.new(Product.new("Candy", 0.65))
+            vending_machine = VendingMachine.new(Product.new("Candy", 65))
 
             vending_machine.store_coin(
                 CoinConstants::QUARTER_WEIGHT,
@@ -50,6 +50,8 @@ RSpec.describe VendingMachine, "#accept" do
             vending_machine.store_coin(
                 CoinConstants::NICKEL_WEIGHT,
                 CoinConstants::NICKEL_THICKNESS, CoinConstants::NICKEL_DIAMETER, 1)
+
+            puts vending_machine.get_stored_coin_total_value
 
             expect { vending_machine.prompt_for_money }.to output(/INSERT COIN/).to_stdout
         end

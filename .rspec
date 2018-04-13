@@ -1,2 +1,2 @@
 --default-path test/
---pattern *.rb
+--pattern *test.rb

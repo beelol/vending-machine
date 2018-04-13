@@ -23,7 +23,7 @@ RSpec.describe Product, "#purchaseproduct" do
     context "with a product" do
         it "can be purchased with appropriate amount" do
             vending_machine = VendingMachine.new
-            product = Product.new("Cola", 1)
+            product = Product.new("Cola", 100)
 
             4.times do
                 vending_machine.add_coin(CoinConstants::QUARTER_WEIGHT, CoinConstants::QUARTER_THICKNESS, CoinConstants::QUARTER_DIAMETER)
@@ -33,7 +33,7 @@ RSpec.describe Product, "#purchaseproduct" do
         end
 
         it "uses the current amount to purchase items" do
-            product = Product.new("Cola", 1)
+            product = Product.new("Cola", 100)
             vending_machine = VendingMachine.new(product)
 
             4.times do
@@ -47,13 +47,25 @@ RSpec.describe Product, "#purchaseproduct" do
 
         it "cannot purchase an item that is more expensive than current amount" do
             vending_machine = VendingMachine.new
-            product = Product.new("Cola", 1)
+            product = Product.new("Cola", 100)
 
             3.times do
                 vending_machine.add_coin(CoinConstants::QUARTER_WEIGHT, CoinConstants::QUARTER_THICKNESS, CoinConstants::QUARTER_DIAMETER)
             end
 
             expect(product.can_be_purchased_with?(vending_machine.current_amount)).to be false
+        end
+
+        it "tells the user the price if they cannot afford the product" do
+            vending_machine = VendingMachine.new
+            product = Product.new("Cola", 100)
+
+            3.times do
+                vending_machine.add_coin(CoinConstants::QUARTER_WEIGHT, CoinConstants::QUARTER_THICKNESS, CoinConstants::QUARTER_DIAMETER)
+            end
+
+            formatted_price = product.price.to_f / 100
+            expect{ vending_machine.purchase(product) }.to output(/PRICE: #{formatted_price}/).to_stdout
         end
     end
 end

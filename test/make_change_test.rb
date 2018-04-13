@@ -6,8 +6,6 @@ RSpec.describe VendingMachine, "#makechange" do
     vending_machine = VendingMachine.new
     context "with a current amount over 0" do
         it "makes change with minimal amount of coins for use case 1.75" do
-            num_quarters = 1.75 / CoinConstants::QUARTER_VALUE
-
             # store 1 quarter in coins
             vending_machine.store_coin(CoinConstants::QUARTER_WEIGHT, CoinConstants::QUARTER_THICKNESS, CoinConstants::QUARTER_DIAMETER, 7)
 

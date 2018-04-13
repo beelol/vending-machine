@@ -7,7 +7,7 @@ require "./product.rb"
 RSpec.describe VendingMachine, "#selectproduct" do
     context "with an array of products" do
         it "can select a product" do
-            product = Product.new("Cola", 1.00)
+            product = Product.new("Cola", 100)
 
             vending_machine = VendingMachine.new(product)
 
@@ -15,9 +15,9 @@ RSpec.describe VendingMachine, "#selectproduct" do
         end
 
         it "finds each respective product" do
-            cola = Product.new("Cola", 1.00)
-            chips = Product.new("Chips", 0.50)
-            candy = Product.new("Candy", 0.65)
+            cola = Product.new("Cola", 100)
+            chips = Product.new("Chips", 50)
+            candy = Product.new("Candy", 65)
 
             vending_machine = VendingMachine.new(cola, chips, candy)
 
@@ -27,9 +27,9 @@ RSpec.describe VendingMachine, "#selectproduct" do
         end
 
         it "purchases a product when selected" do
-            cola = Product.new("Cola", 1.00)
-            chips = Product.new("Chips", 0.50)
-            candy = Product.new("Candy", 0.65)
+            cola = Product.new("Cola", 100)
+            chips = Product.new("Chips", 50)
+            candy = Product.new("Candy", 65)
 
             vending_machine = VendingMachine.new(cola, chips, candy)
 
@@ -39,7 +39,7 @@ RSpec.describe VendingMachine, "#selectproduct" do
 
             vending_machine.select_product(2)
 
-            expect(vending_machine.current_amount).to eq 0.35
+            expect(vending_machine.current_amount).to eq 35
         end
     end
 end
