@@ -4,7 +4,8 @@ This is a simple system created with TDD to simulate a Vending Machine that acce
 ## Dependencies
 To run Vending Machine, your system should have Ruby 2.1.2+ installed, as well as RSpec 3.0+
 
-If you don't have RSpec, simply run gem install RSpec.
+If you don't have RSpec, simply run the following command:
+    gem install rspec.
 
 ## Running
 Vending Machine can be run with the following commands:
@@ -12,6 +13,16 @@ Vending Machine can be run with the following commands:
     ruby vending_machine_driver.rb
 
 You can of course also make your own driver, and run it with the ruby command.
+
+## Testing
+
+Vending Machine can be tested with the following command:
+
+    rspec
+
+This is the default command line argument to run the RSpec Gem on a ruby application.
+
+The .rspec file contains details so only files within the ./test/ directory and ending with "\_test.rb" will be run during testing.
 
 ## Commands
 While running Vending Machine, the program will enter an input loop.
