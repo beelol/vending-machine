@@ -55,9 +55,55 @@ class VendingMachine
         # we don't need exact change and can return the amount
     end
 
+    def can_make_change_for_every_product
+        @products.each do |product, count|
+            unless can_make_change_for_amount(product.price)
+                return false
+            end
+        end
+
+        true
+    end
+
+    def can_make_change_for_amount(amount)
+        (make_change_for_amount(amount, true).inject(0) {|sum, coin| sum + coin }) == amount
+    end
+
+    # we use this function to check if we can and make change
+    # so we use check to ensure coins are not removed if it's possible
+    # to make appropriate change
+    def make_change_for_amount(amount, check = false)
+        remaining_returns = amount
+
+        change = []
+
+        @coins.each do |coin, count|
+            num_coins = count
+
+            while num_coins > 0 && ((remaining_returns - @@coin_value_by_details[coin]) >= 0)
+                # remove amount we need less
+                remaining_returns -= @@coin_value_by_details[coin]
+                change << @@coin_value_by_details[coin]
+
+                num_coins -= 1
+                # puts remaining_returns
+            end
+
+            @coins[coin] = num_coins unless check
+
+            break if remaining_returns == 0
+        end
+
+        # puts change
+        change
+    end
+
     def prompt_for_money
-        if can_make_change
+        # if we can make change for both the current amount and each product, we ask for a coin can_make_change &&
+        if can_make_change_for_every_product
             puts "INSERT COIN"
+
+        # otherwise inform the user that they need to insert exact change
         else
             puts "EXACT CHANGE ONLY"
         end
@@ -70,6 +116,8 @@ class VendingMachine
         else
             @coins[coin] = count
         end
+
+        puts "There are now #{@coins[coin]} coins with value #{@@coin_value_by_details[coin]}"
     end
 
     def get_coin_count(weight, thickness, diameter)
@@ -109,7 +157,7 @@ class VendingMachine
     end
 
     def return_coins
-        puts "COINS RETURNED IN SLOT BELOW"
+        puts "COINS RETURNED IN SLOT BELOW: #{@user_coins.map {|coin| coin.to_f / 100}}"
         @user_coins.clear
         @current_amount = 0
     end
@@ -124,11 +172,14 @@ class VendingMachine
         else
             if @products.has_key?(product) && @products[product] < 1
                 puts "SOLD OUT"
-                return
+                return false
             end
 
             puts "PRICE: #{product.price.to_f / 100}"
+            return false
         end
+
+        true
     end
 
     def can_purchase_product?(product)
@@ -153,13 +204,18 @@ class VendingMachine
     end
 
     def select_product(index)
-        purchase get_product_at(index)
+        if purchase get_product_at(index)
 
-        # coins are stored as integers, so we need to convert them down to cents
-        change_to_return = make_change.select { |num| num / 100 }
+            # coins are stored as integers, so we need to convert them down to cents
+            change_to_return = make_change.map { |num| num.to_f / 100 }
 
-        unless change_to_return.empty?
-            puts "CHANGE IN SLOT BELOW: #{change_to_return.to_s}"
+            unless change_to_return.empty?
+                puts "CHANGE IN SLOT BELOW: #{change_to_return.to_s}"
+            end
+
+            user_coins.clear
+        else
+            return_coins
         end
 
         # clear the amount
@@ -167,27 +223,6 @@ class VendingMachine
     end
 
     def make_change
-        remaining_returns = @current_amount
-
-        change = []
-
-        @coins.each do |coin, count|
-            # break if remaining_returns == 0
-            #
-            # puts remaining_returns
-            # puts @@coin_value_by_details[coin]
-
-            while @coins[coin] > 0 && remaining_returns - @@coin_value_by_details[coin] >= 0
-                num_coins = (@coins[coin] -= 1)
-
-                remaining_returns -= @@coin_value_by_details[coin]
-                change << @@coin_value_by_details[coin]
-            end
-
-            break if remaining_returns == 0
-        end
-
-        # puts change
-        change
+        make_change_for_amount @current_amount
     end
 end
