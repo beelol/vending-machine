@@ -155,8 +155,12 @@ class VendingMachine
     def select_product(index)
         purchase get_product_at(index)
 
-        # return what's left to the user
-        make_change
+        # coins are stored as integers, so we need to convert them down to cents
+        change_to_return = make_change.select { |num| num / 100 }
+
+        unless change_to_return.empty?
+            puts "CHANGE IN SLOT BELOW: #{change_to_return.to_s}"
+        end
 
         # clear the amount
         @current_amount = 0
